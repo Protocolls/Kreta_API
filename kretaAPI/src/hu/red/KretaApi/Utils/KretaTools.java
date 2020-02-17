@@ -1,8 +1,6 @@
-package hu.red.KretaApi;
+package hu.red.KretaApi.Utils;
 
 import com.google.gson.Gson;
-import hu.red.KretaApi.Utils.DataBuilder;
-import hu.red.KretaApi.Utils.Header;
 import hu.red.KretaApi.objects.API_LINKS;
 import hu.red.KretaApi.objects.School;
 import hu.red.KretaApi.objects.Tokens;
@@ -18,18 +16,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Base64;
 
-public class KretaAPI {
-    private final String USER_NAME;
-    private final String PASSWORD;
-    private final int SCHOOL_ID;
-
-    public KretaAPI(String user_name, String password, int school_id) {
-        USER_NAME = user_name;
-        PASSWORD = password;
-        SCHOOL_ID = school_id;
-    }
-
-
+public class KretaTools {
     public static class APITools {
         private final static Gson gson = new Gson();
 
@@ -76,8 +63,8 @@ public class KretaAPI {
         public final static Header USER_AGENT_HEADER = new Header("User-Agent", "Kreta.Ellenorzo");
         public final static String API_KEY = "7856d350-1fda-45f5-822d-e1a2f3f1acf0";
         public final static Header API_KEY_HEADER = new Header("apiKey", API_KEY);
-        public final static String SCHOOL_LIST_LINK = "http://kretaglobalmobileapi2.ekreta.hu/api/v2/Institute/";
-        public final static String API_LINKS_LINK = "http://kretamobile.blob.core.windows.net/configuration/ConfigurationDescriptor.json";
+        public final static String SCHOOL_LIST_LINK = "https://kretaglobalmobileapi2.ekreta.hu/api/v2/Institute/";
+        public final static String API_LINKS_LINK = "https://kretamobile.blob.core.windows.net/configuration/ConfigurationDescriptor.json";
     }
 
     public static class Utils {
