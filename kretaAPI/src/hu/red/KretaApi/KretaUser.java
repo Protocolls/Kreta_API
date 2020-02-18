@@ -9,6 +9,7 @@ public class KretaUser {
     private final String PASSWORD;
     private final School SCHOOL;
     private Tokens tokens = null;
+    private long expTime = 0;
 
     public KretaUser(String user_name, String password, School school) {
         USER_NAME = user_name;
@@ -16,11 +17,27 @@ public class KretaUser {
         SCHOOL = school;
     }
 
-    public void refresh_bearer() {
-        if (tokens == null) {
-            tokens = KretaTools.APITools.getBearerTokens(SCHOOL.getInstituteCode(), USER_NAME, PASSWORD, "PASSWORD");
-
-        }
+    public Tokens refreshTokens() {
+        if (tokens != null)
+            if (expTime > System.currentTimeMillis()) {
+                tokens = KretaTools.APITools.updateTokens(SCHOOL.getInstituteCode(), tokens.getRefresh_token());
+                expTime = System.currentTimeMillis() + tokens.getExpires_in() * 1000;
+                return tokens;
+            }
+        tokens = KretaTools.APITools.getTokens(SCHOOL.getInstituteCode(), USER_NAME, PASSWORD);
+        expTime = System.currentTimeMillis() + tokens.getExpires_in() * 1000;
+        return tokens;
     }
 
+    public School getSCHOOL() {
+        return SCHOOL;
+    }
+
+    public Tokens getTokens() {
+        return tokens;
+    }
+
+    public long getExpTime() {
+        return expTime;
+    }
 }

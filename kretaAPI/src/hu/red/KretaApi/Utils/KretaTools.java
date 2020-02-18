@@ -5,19 +5,17 @@ import hu.red.KretaApi.objects.API_LINKS;
 import hu.red.KretaApi.objects.School;
 import hu.red.KretaApi.objects.Tokens;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Base64;
 
 public class KretaTools {
     public static class APITools {
+
         private final static Gson gson = new Gson();
 
         public static School[] getSchools() {
@@ -41,12 +39,12 @@ public class KretaTools {
             return getAPILinks().getGlobalMobileApiUrlPROD();
         }
 
-        public static Tokens getBearerTokens(String instituteCode, String username, String password, String grandType) {
+        public static Tokens getTokens(String instituteCode, String username, String password) {
             DataBuilder dataBuilder = new DataBuilder();
             dataBuilder.AddData("institute_code", instituteCode);
             dataBuilder.AddData("userName", username);
             dataBuilder.AddData("password", password);
-            dataBuilder.AddData("grant_type", grandType);
+            dataBuilder.AddData("grant_type", "password");
             dataBuilder.AddData("client_id", "919e0c1c-76a2-4646-a2fb-7085bbbf3c56");
             String data = dataBuilder.Build();
             Header[] headers = {
@@ -57,6 +55,31 @@ public class KretaTools {
             String url = "https://" + instituteCode + ".e-kreta.hu:443/idp/api/v1/Token";
             return gson.fromJson(Utils.GetStringFromServer(url, headers, data), Tokens.class);
         }
+
+        public static Tokens updateTokens(String instituteCode, String refreshToken) {
+            Header[] headers = {
+                    new Header("Content-Type", "application/x-www-form-urlencoded"),
+                    new Header("charset", "utf-8"),
+                    URLS.USER_AGENT_HEADER
+            };
+            DataBuilder dataBuilder = new DataBuilder();
+            dataBuilder.AddData("institute_code", instituteCode);
+            dataBuilder.AddData("refresh_token", refreshToken);
+            dataBuilder.AddData("grant_type", "refresh_token");
+            dataBuilder.AddData("client_id", "919e0c1c-76a2-4646-a2fb-7085bbbf3c56");
+            String url = "https://" + instituteCode + ".e-kreta.hu:443/idp/api/v1/Token";
+            return gson.fromJson(Utils.GetStringFromServer(url, headers, dataBuilder.Build()), Tokens.class);
+
+        }
+
+        //todo nem tudtam tesztelni mivel nekem nincs.... Félbehagyva....
+        public static String getEUgyintezes(String bearer) {
+            return Utils.GetStringFromServer(
+                    "https://eugyintezes.e-kreta.hu/integration-kretamobile-api/v1/kommunikacio/postaladaelemek/sajat",
+                    new Header("Authorization", "Bearer " + bearer)
+            );
+        }
+
     }
 
     private static class URLS {
@@ -78,18 +101,10 @@ public class KretaTools {
         }
 
         public static String GetStringFromServer(String address, Header[] headers, String data) {
-            URL url = null;
+            URL url;
             try {
                 url = new URL(address);
-
-                URLConnection connection;
-                if (url.getProtocol().equals("https")) {
-                    HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-                    connection = con;
-                } else {
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    connection = con;
-                }
+                URLConnection connection = url.openConnection();
                 AddHeader(connection, headers);
                 if (data != null) {
                     connection.setDoOutput(true);
@@ -100,8 +115,6 @@ public class KretaTools {
                 }
                 return GetContent(connection);
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -109,9 +122,8 @@ public class KretaTools {
         }
 
         private static void AddHeader(URLConnection con, Header[] headers) {
-
-            for (int i = 0; i < headers.length; i++) {
-                con.addRequestProperty(headers[i].getKey(), headers[i].getVaule());
+            for (Header header : headers) {
+                con.addRequestProperty(header.getKey(), header.getVaule());
             }
         }
 
@@ -122,13 +134,13 @@ public class KretaTools {
                             new BufferedReader(
                                     new InputStreamReader(con.getInputStream()));
                     String input;
-                    String full = "";
+                    StringBuilder builder = new StringBuilder();
 
                     while ((input = br.readLine()) != null) {
-                        full = full + input + "\n";
+                        builder.append(input).append("\n");
                     }
                     br.close();
-                    return full;
+                    return builder.toString();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
