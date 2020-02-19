@@ -3,6 +3,7 @@ package hu.red.KretaApi.Utils;
 import com.google.gson.Gson;
 import hu.red.KretaApi.objects.API_LINKS;
 import hu.red.KretaApi.objects.School;
+import hu.red.KretaApi.objects.Test;
 import hu.red.KretaApi.objects.Tokens;
 
 import java.io.BufferedReader;
@@ -80,13 +81,13 @@ public class KretaTools {
             );
         }
 
-        public static String getTests(String instituteCode, String bearer) {
+        public static Test[] getTests(String instituteCode, String bearer) {
             Header[] headers = {
                     new Header("Authorization", "Bearer " + bearer),
                     URLS.USER_AGENT_HEADER
             };
             String url = "https://" + instituteCode + ".e-kreta.hu/mapi/api/v1/BejelentettSzamonkeres?DatumTol=null&DatumIg=null";
-            return Utils.GetStringFromServer(url, headers);//gson.fromJson(Utils.GetStringFromServer(url, headers), .class);
+            return gson.fromJson(Utils.GetStringFromServer(url, headers), Test[].class);
         }
 
     }

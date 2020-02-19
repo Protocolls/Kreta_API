@@ -2,6 +2,7 @@ package hu.red.KretaApi;
 
 import hu.red.KretaApi.Utils.KretaTools;
 import hu.red.KretaApi.objects.School;
+import hu.red.KretaApi.objects.Test;
 import hu.red.KretaApi.objects.Tokens;
 
 public class KretaUser {
@@ -29,7 +30,7 @@ public class KretaUser {
         return tokens;
     }
 
-    public String getTests() {
+    public Test[] getTests() {
         return KretaTools.APITools.getTests(SCHOOL.getInstituteCode(), tokens.getAccess_token());
     }
 
