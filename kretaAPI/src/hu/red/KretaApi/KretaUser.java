@@ -29,6 +29,10 @@ public class KretaUser {
         return tokens;
     }
 
+    public String getTests() {
+        return KretaTools.APITools.getTests(SCHOOL.getInstituteCode(), tokens.getAccess_token());
+    }
+
     public School getSCHOOL() {
         return SCHOOL;
     }
