@@ -1,10 +1,7 @@
 package hu.red.KretaApi.Utils;
 
 import com.google.gson.Gson;
-import hu.red.KretaApi.objects.API_LINKS;
-import hu.red.KretaApi.objects.School;
-import hu.red.KretaApi.objects.Test;
-import hu.red.KretaApi.objects.Tokens;
+import hu.red.KretaApi.objects.*;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -12,7 +9,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 
 public class KretaTools {
     public static class APITools {
@@ -90,6 +89,24 @@ public class KretaTools {
             return gson.fromJson(Utils.GetStringFromServer(url, headers), Test[].class);
         }
 
+        public static UserData getStudentInfos(String instituteCode, String bearer, Date from, Date to) {
+            Header[] headers = {
+                    new Header("Authorization", "Bearer " + bearer),
+                    URLS.USER_AGENT_HEADER
+            };
+            String url = "";
+            if (from == null || to == null) {
+                url = "https://" + instituteCode + ".e-kreta.hu/mapi/api/v1/Student";
+            } else {
+                url = "https://" + instituteCode + ".e-kreta.hu/mapi/api/v1/Student?fromDate=" + Utils.DateToString(from) + "&toDate=" + Utils.DateToString(to);
+            }
+            return gson.fromJson(Utils.GetStringFromServer(url, headers), UserData.class);
+        }
+
+        public static UserData getStudentInfos(String instituteCode, String bearer) {
+            return getStudentInfos(instituteCode, bearer, null, null);
+        }
+
     }
 
     private static class URLS {
@@ -101,6 +118,12 @@ public class KretaTools {
     }
 
     public static class Utils {
+        private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        public static String DateToString(Date date) {
+            return dateFormat.format(date);
+        }
+
         //region GetStringFromServer
         public static String GetStringFromServer(String address, Header[] headers) {
             return GetStringFromServer(address, headers, null);

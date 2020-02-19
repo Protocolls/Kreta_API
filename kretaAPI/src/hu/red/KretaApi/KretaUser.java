@@ -4,6 +4,7 @@ import hu.red.KretaApi.Utils.KretaTools;
 import hu.red.KretaApi.objects.School;
 import hu.red.KretaApi.objects.Test;
 import hu.red.KretaApi.objects.Tokens;
+import hu.red.KretaApi.objects.UserData;
 
 public class KretaUser {
     private final String USER_NAME;
@@ -20,7 +21,7 @@ public class KretaUser {
 
     public Tokens refreshTokens() {
         if (tokens != null)
-            if (expTime > System.currentTimeMillis()) {
+            if (expTime < System.currentTimeMillis()) {
                 tokens = KretaTools.APITools.updateTokens(SCHOOL.getInstituteCode(), tokens.getRefresh_token());
                 expTime = System.currentTimeMillis() + tokens.getExpires_in() * 1000;
                 return tokens;
@@ -28,6 +29,7 @@ public class KretaUser {
         tokens = KretaTools.APITools.getTokens(SCHOOL.getInstituteCode(), USER_NAME, PASSWORD);
         expTime = System.currentTimeMillis() + tokens.getExpires_in() * 1000;
         return tokens;
+
     }
 
     public Test[] getTests() {
@@ -44,5 +46,9 @@ public class KretaUser {
 
     public long getExpTime() {
         return expTime;
+    }
+
+    public UserData getUserData() {
+        return KretaTools.APITools.getStudentInfos(SCHOOL.getInstituteCode(), tokens.getAccess_token());
     }
 }
