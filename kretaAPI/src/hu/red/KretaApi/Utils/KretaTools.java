@@ -107,10 +107,19 @@ public class KretaTools {
             return getStudentInfos(instituteCode, bearer, null, null);
         }
 
+        public static Lesson[] getTimetable(String instituteCode, String bearer, Date from, Date to) {
+            Header[] headers = {
+                    new Header("Authorization", "Bearer " + bearer),
+                    URLS.USER_AGENT_HEADER
+            };
+            String url = "https://" + instituteCode + ".e-kreta.hu/mapi/api/v1/Lesson?fromDate=" + Utils.DateToString(from) + "&toDate=" + Utils.DateToString(to);
+            return gson.fromJson(Utils.GetStringFromServer(url, headers), Lesson[].class);
+        }
+
     }
 
     private static class URLS {
-        public final static Header USER_AGENT_HEADER = new Header("User-Agent", "Kreta.Ellenorzo");
+        public static Header USER_AGENT_HEADER = new Header("User-Agent", "Kreta.Ellenorzo");
         public final static String API_KEY = "7856d350-1fda-45f5-822d-e1a2f3f1acf0";
         public final static Header API_KEY_HEADER = new Header("apiKey", API_KEY);
         public final static String SCHOOL_LIST_LINK = "https://kretaglobalmobileapi2.ekreta.hu/api/v2/Institute/";

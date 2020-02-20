@@ -32,6 +32,10 @@ public class KretaUser {
 
     }
 
+    public Tokens forceRefreshTokens() {
+        return tokens = KretaTools.APITools.getTokens(SCHOOL.getInstituteCode(), USER_NAME, PASSWORD);
+    }
+
     public Test[] getTests() {
         return KretaTools.APITools.getTests(SCHOOL.getInstituteCode(), tokens.getAccess_token());
     }
