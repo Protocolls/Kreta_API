@@ -14,6 +14,7 @@ public class API_LINKS {
         GlobalMobileApiUrlPROD = globalMobileApiUrlPROD;
     }
 
+    //region getters
     public String getGlobalMobileApiUrlDEV() {
         return GlobalMobileApiUrlDEV;
     }
@@ -29,4 +30,5 @@ public class API_LINKS {
     public String getGlobalMobileApiUrlPROD() {
         return GlobalMobileApiUrlPROD;
     }
+    //endregion
 }

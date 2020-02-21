@@ -5,6 +5,7 @@ import hu.red.KretaApi.Utils.KretaTools;
 import java.util.Date;
 
 public class UserData {
+    //region Variables
     private final String TanuloAktualisOktatasNevelesiKategoriaja;
     private final int StudentId;
     private final int SchoolYearId;
@@ -26,6 +27,7 @@ public class UserData {
     private final Form_Teacher FormTeacher;
     private final Osztalyfonok[] Osztalyfonokok;
     private final Tutelary[] Tutelaries;
+    //endregion
 
     public UserData(String tanuloAktualisOktatasNevelesiKategoriaja, int studentId, int schoolYearId, String name, String nameOfBirth, String placeOfBirth, String mothersName, String[] addressDataList, String dateOfBirthUtc, String instituteName, String instituteCode, Evaluation[] evaluations, SubjectAverage[] subjectAverages, Absence[] absences, Note[] notes, OsztalyCsoport[] osztalyCsoportok, String lessons, String events, Form_Teacher formTeacher, Osztalyfonok[] osztalyfonokok, Tutelary[] tutelaries) {
         TanuloAktualisOktatasNevelesiKategoriaja = tanuloAktualisOktatasNevelesiKategoriaja;
@@ -50,6 +52,7 @@ public class UserData {
         Osztalyfonokok = osztalyfonokok;
         Tutelaries = tutelaries;
     }
+    //region getters
 
     public String getTanuloAktualisOktatasNevelesiKategoriaja() {
         return TanuloAktualisOktatasNevelesiKategoriaja;
@@ -135,6 +138,8 @@ public class UserData {
         return Tutelaries;
     }
 
+    //endregion
+    //region subclasses
     public class Evaluation {
         private final int EvaluationId;
         private final String Form;
@@ -716,4 +721,5 @@ public class UserData {
             return PhoneNumber;
         }
     }
+    //endregion
 }

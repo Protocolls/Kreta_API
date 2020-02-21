@@ -31,6 +31,7 @@ public class Test {
         OsztalyCsoportUid = osztalyCsoportUid;
     }
 
+
     public String getUid() {
         return Uid;
     }

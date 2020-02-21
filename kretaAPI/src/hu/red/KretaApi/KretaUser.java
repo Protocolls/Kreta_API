@@ -21,16 +21,15 @@ public class KretaUser {
         SCHOOL = school;
     }
 
-    public Tokens refreshTokens() {
+    public void refreshTokens() {
         if (tokens != null)
             if (expTime < System.currentTimeMillis()) {
                 tokens = KretaTools.APITools.updateTokens(SCHOOL.getInstituteCode(), tokens.getRefresh_token());
                 expTime = System.currentTimeMillis() + tokens.getExpires_in() * 1000;
-                return tokens;
-            }
+                return;
+            } else return;
         tokens = KretaTools.APITools.getTokens(SCHOOL.getInstituteCode(), USER_NAME, PASSWORD);
         expTime = System.currentTimeMillis() + tokens.getExpires_in() * 1000;
-        return tokens;
 
     }
 

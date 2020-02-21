@@ -2,12 +2,10 @@ package hu.red.KretaApi.objects;
 
 import hu.red.KretaApi.Utils.KretaTools.Utils;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Lesson {
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-kk:mm:ss");
-
+    //region Varibles
     private final int LessonId;
     private final String CalendarOraType;
     private final int Count;
@@ -33,6 +31,7 @@ public class Lesson {
     private final String Nev;
     private final String Homework;
 
+    //endregion
     public Lesson(int lessonId, String calendarOraType, int count, String date, String startTime, String endTime, String subject, String subjectCategory, String subjectCategoryName, String classRoom, int osztalyCsoportId, String classGroup, String teacher, String deputyTeacher, String state, String stateName, String presenceType, String presenceTypeName, int teacherHomeworkId, boolean isTanuloHaziFeladatEnabled, String[] bejelentettSzamonkeresIdList, String theme, String nev, String homework) {
         LessonId = lessonId;
         CalendarOraType = calendarOraType;
@@ -60,6 +59,7 @@ public class Lesson {
         Homework = homework;
     }
 
+    //region Getters
     public Date getDate() {
         return Utils.StingToDate(Date);
     }
@@ -155,4 +155,5 @@ public class Lesson {
     public String getHomework() {
         return Homework;
     }
+    //endregion
 }

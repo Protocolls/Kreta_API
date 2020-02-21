@@ -14,11 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 
-public class KretaTools {
-    public static class APITools {
+public abstract class KretaTools {
+    public abstract static class APITools {
 
         private final static Gson gson = new Gson();
 
+        //region GetSchools
         public static School[] getSchools() {
             String json = Utils.GetStringFromServer(URLS.SCHOOL_LIST_LINK, URLS.API_KEY_HEADER);
             return gson.fromJson(json, School[].class);
@@ -31,6 +32,8 @@ public class KretaTools {
             );
         }
 
+        //endregion
+        //region API Links
         public static API_LINKS getAPILinks() {
             String json = Utils.GetStringFromServer(URLS.API_LINKS_LINK);
             return gson.fromJson(json, API_LINKS.class);
@@ -40,6 +43,8 @@ public class KretaTools {
             return getAPILinks().getGlobalMobileApiUrlPROD();
         }
 
+        //endregion
+        //region tokens
         public static Tokens getTokens(String instituteCode, String username, String password) {
             DataBuilder dataBuilder = new DataBuilder();
             dataBuilder.AddData("institute_code", instituteCode);
@@ -73,6 +78,7 @@ public class KretaTools {
 
         }
 
+        //endregion
         //todo nem tudtam tesztelni mivel nekem nincs.... Félbehagyva....
         public static String getEUgyintezes(String bearer) {
             return Utils.GetStringFromServer(
@@ -90,6 +96,7 @@ public class KretaTools {
             return gson.fromJson(Utils.GetStringFromServer(url, headers), Test[].class);
         }
 
+        //region Student datas
         public static UserData getStudentInfos(String instituteCode, String bearer, Date from, Date to) {
             Header[] headers = {
                     new Header("Authorization", "Bearer " + bearer),
@@ -107,6 +114,7 @@ public class KretaTools {
         public static UserData getStudentInfos(String instituteCode, String bearer) {
             return getStudentInfos(instituteCode, bearer, null, null);
         }
+//endregion
 
         public static Lesson[] getTimetable(String instituteCode, String bearer, Date from, Date to) {
             Header[] headers = {
@@ -116,7 +124,6 @@ public class KretaTools {
             String url = "https://" + instituteCode + ".e-kreta.hu/mapi/api/v1/Lesson?fromDate=" + Utils.DateToString(from) + "&toDate=" + Utils.DateToString(to);
             return gson.fromJson(Utils.GetStringFromServer(url, headers), Lesson[].class);
         }
-
     }
 
     private static class URLS {
@@ -127,7 +134,8 @@ public class KretaTools {
         public final static String API_LINKS_LINK = "https://kretamobile.blob.core.windows.net/configuration/ConfigurationDescriptor.json";
     }
 
-    public static class Utils {
+    public abstract static class Utils {
+        //region DateFormation
         private static final SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         private static final SimpleDateFormat longDateFormat = new SimpleDateFormat("yyyy-MM-dd-kk:mm:ss");
         private static final SimpleDateFormat longerDateFormat = new SimpleDateFormat("yyyy-MM-dd-kk:mm:ss.SSS");
@@ -137,6 +145,7 @@ public class KretaTools {
         }
 
         public static Date StingToDate(String date) {
+
             date = date.replace('T', '-');
             if (date.length() == 20)
                 date = date.substring(0, date.length() - 1);// a krétás hülyeség miatt kell, (random 'Z'a dátum végén...)
@@ -158,7 +167,7 @@ public class KretaTools {
             return null;
         }
 
-
+        //endregion
         //region GetStringFromServer
         public static String GetStringFromServer(String address, Header[] headers) {
             return GetStringFromServer(address, headers, null);

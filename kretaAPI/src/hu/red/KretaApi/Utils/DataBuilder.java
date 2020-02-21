@@ -16,7 +16,6 @@ public class DataBuilder {
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         return stringBuilder.toString();
-
     }
 
     public void AddData(String head, String body) {

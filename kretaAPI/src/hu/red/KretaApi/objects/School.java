@@ -1,6 +1,7 @@
 package hu.red.KretaApi.objects;
 
 public class School {
+    //region Variables
     private final String instituteCode;
     private final String name;
     private final String url;
@@ -8,6 +9,7 @@ public class School {
     private final String advertisingUrl;
     private final FeatureToggleSet featureToggleSet;
     private int instituteId;
+    //endregion
 
     public School(int instituteId, String instituteCode, String name, String url, String city, String advertisingUrl, FeatureToggleSet featureToggleSet) {
         this.instituteId = instituteId;
@@ -19,6 +21,7 @@ public class School {
         this.featureToggleSet = featureToggleSet;
     }
 
+    //region getters
     public int getInstituteId() {
         return instituteId;
     }
@@ -46,12 +49,13 @@ public class School {
     public FeatureToggleSet getFeatureToggleSet() {
         return featureToggleSet;
     }
+    //endregions
 
     @Override
     public String toString() {
         return name;
     }
 
-    class FeatureToggleSet {
+    public class FeatureToggleSet {
     }
 }
