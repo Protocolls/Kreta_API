@@ -1,6 +1,6 @@
 package hu.red.KretaApi;
 
-import hu.red.KretaApi.Utils.KretaTools;
+import hu.red.KretaApi.Utils.Kreta;
 import hu.red.KretaApi.objects.*;
 
 import java.util.Date;
@@ -24,11 +24,11 @@ public class KretaUser {
     public void refreshTokens() {
         if (tokens != null)
             if (expTime < System.currentTimeMillis()) {
-                tokens = KretaTools.APITools.updateTokens(SCHOOL.getInstituteCode(), tokens.getRefresh_token());
+                tokens = Kreta.APITools.updateTokens(SCHOOL.getInstituteCode(), tokens.getRefresh_token());
                 expTime = System.currentTimeMillis() + tokens.getExpires_in() * 1000;
                 return;
             } else return;
-        tokens = KretaTools.APITools.getTokens(SCHOOL.getInstituteCode(), USER_NAME, PASSWORD);
+        tokens = Kreta.APITools.getTokens(SCHOOL.getInstituteCode(), USER_NAME, PASSWORD);
         expTime = System.currentTimeMillis() + tokens.getExpires_in() * 1000;
 
     }
@@ -38,26 +38,36 @@ public class KretaUser {
     }
 
     public Tokens forceRefreshTokens() {
-        return tokens = KretaTools.APITools.getTokens(SCHOOL.getInstituteCode(), USER_NAME, PASSWORD);
+        return tokens = Kreta.APITools.getTokens(SCHOOL.getInstituteCode(), USER_NAME, PASSWORD);
     }
+
     //endregion
-
+    //region getTest
     public Test[] getTests() {
-        return KretaTools.APITools.getTests(SCHOOL.getInstituteCode(), tokens.getAccess_token());
+        return Kreta.APITools.getTests(SCHOOL.getInstituteCode(), tokens.getAccess_token());
     }
 
+    public Test[] getTests(Date from, Date to) {
+        return Kreta.APITools.getTests(SCHOOL.getInstituteCode(), tokens.getAccess_token(), from, to);
+    }
+
+    //endregion
     //region getUserDate
     public UserData getUserData() {
-        return KretaTools.APITools.getStudentInfos(SCHOOL.getInstituteCode(), tokens.getAccess_token());
+        return Kreta.APITools.getStudentInfos(SCHOOL.getInstituteCode(), tokens.getAccess_token());
     }
 
     public UserData getUserData(Date from, Date to) {
-        return KretaTools.APITools.getStudentInfos(SCHOOL.getInstituteCode(), tokens.getAccess_token(), from, to);
+        return Kreta.APITools.getStudentInfos(SCHOOL.getInstituteCode(), tokens.getAccess_token(), from, to);
     }
     //endregion
 
     public Lesson[] getLessons(Date from, Date to) {
-        return KretaTools.APITools.getTimetable(SCHOOL.getInstituteCode(), tokens.getAccess_token(), from, to);
+        return Kreta.APITools.getTimetable(SCHOOL.getInstituteCode(), tokens.getAccess_token(), from, to);
+    }
+
+    public Homework[] getHomeworks(int TeacherHomeworkId) {
+        return Kreta.APITools.getHomeworks(SCHOOL.getInstituteCode(), tokens.getAccess_token(), TeacherHomeworkId);
     }
 
     //region SimpleGetters

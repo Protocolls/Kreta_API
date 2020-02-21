@@ -1,6 +1,6 @@
 package hu.red.KretaApi.objects;
 
-import hu.red.KretaApi.Utils.KretaTools;
+import hu.red.KretaApi.Utils.Kreta;
 
 import java.util.Date;
 
@@ -87,7 +87,7 @@ public class UserData {
     }
 
     public Date getDateOfBirthUtc() {
-        return KretaTools.Utils.StingToDate(DateOfBirthUtc);
+        return Kreta.Utils.StingToDate(DateOfBirthUtc);
     }
 
     public String getInstituteName() {
@@ -254,11 +254,11 @@ public class UserData {
         }
 
         public Date getDate() {
-            return KretaTools.Utils.StingToDate(Date);
+            return Kreta.Utils.StingToDate(Date);
         }
 
         public Date getCreatingTime() {
-            return KretaTools.Utils.StingToDate(CreatingTime);
+            return Kreta.Utils.StingToDate(CreatingTime);
         }
 
         public Tipus getJelleg() {
@@ -434,7 +434,7 @@ public class UserData {
         }
 
         public Date getLessonStartTime() {
-            return KretaTools.Utils.StingToDate(LessonStartTime);
+            return Kreta.Utils.StingToDate(LessonStartTime);
         }
 
         public int getNumberOfLessons() {
@@ -442,7 +442,7 @@ public class UserData {
         }
 
         public Date getCreatingTime() {
-            return KretaTools.Utils.StingToDate(CreatingTime);
+            return Kreta.Utils.StingToDate(CreatingTime);
         }
 
         public String getJustificationState() {
@@ -518,11 +518,11 @@ public class UserData {
         }
 
         public Date getDate() {
-            return KretaTools.Utils.StingToDate(Date);
+            return Kreta.Utils.StingToDate(Date);
         }
 
         public Date getCreatingTime() {
-            return KretaTools.Utils.StingToDate(CreatingTime);
+            return Kreta.Utils.StingToDate(CreatingTime);
         }
 
         public String getOsztalyCsoportUid() {

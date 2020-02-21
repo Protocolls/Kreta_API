@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 
-public abstract class KretaTools {
+public abstract class Kreta {
     public abstract static class APITools {
 
         private final static Gson gson = new Gson();
@@ -94,6 +94,24 @@ public abstract class KretaTools {
             };
             String url = "https://" + instituteCode + ".e-kreta.hu/mapi/api/v1/BejelentettSzamonkeres?DatumTol=null&DatumIg=null";
             return gson.fromJson(Utils.GetStringFromServer(url, headers), Test[].class);
+        }
+
+        public static Test[] getTests(String instituteCode, String bearer, Date from, Date to) {
+            Header[] headers = {
+                    new Header("Authorization", "Bearer " + bearer),
+                    URLS.USER_AGENT_HEADER
+            };
+            String url = "https://" + instituteCode + ".e-kreta.hu/mapi/api/v1/BejelentettSzamonkeres?DatumTol=" + Utils.DateToString(from) + "&DatumIg=" + Utils.DateToString(from);
+            return gson.fromJson(Utils.GetStringFromServer(url, headers), Test[].class);
+        }
+
+        public static Homework[] getHomeworks(String instituteCode, String bearer, int TeacherHomeworkId) {
+            Header[] headers = {
+                    new Header("Authorization", "Bearer " + bearer),
+                    URLS.USER_AGENT_HEADER
+            };
+            String url = "https://" + instituteCode + ".e-kreta.hu/mapi/api/v1/HaziFeladat/TanuloHaziFeladatLista/" + TeacherHomeworkId;
+            return gson.fromJson(Utils.GetStringFromServer(url, headers), Homework[].class);
         }
 
         //region Student datas

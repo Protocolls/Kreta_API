@@ -1,6 +1,6 @@
 package hu.red.KretaApi.objects;
 
-import hu.red.KretaApi.Utils.KretaTools.Utils;
+import hu.red.KretaApi.Utils.Kreta.Utils;
 
 import java.util.Date;
 
