@@ -1,6 +1,7 @@
 package hu.red.KretaApi.objects;
 
-import java.text.ParseException;
+import hu.red.KretaApi.Utils.KretaTools.Utils;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -60,31 +61,15 @@ public class Lesson {
     }
 
     public Date getDate() {
-        try {
-            return dateFormat.parse(Date.replace('T', '-'));
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return Utils.StingToDate(Date);
     }
 
     public Date getStartTime() {
-        try {
-            return dateFormat.parse(StartTime.replace('T', '-'));
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return Utils.StingToDate(StartTime);
     }
 
     public Date getEndTime() {
-        try {
-            return dateFormat.parse(EndTime.replace('T', '-'));
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
-
+        return Utils.StingToDate(EndTime);
     }
 
     public int getLessonId() {

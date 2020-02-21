@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
@@ -127,11 +128,36 @@ public class KretaTools {
     }
 
     public static class Utils {
-        private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        private static final SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        private static final SimpleDateFormat longDateFormat = new SimpleDateFormat("yyyy-MM-dd-kk:mm:ss");
+        private static final SimpleDateFormat longerDateFormat = new SimpleDateFormat("yyyy-MM-dd-kk:mm:ss.SSS");
 
         public static String DateToString(Date date) {
-            return dateFormat.format(date);
+            return shortDateFormat.format(date);
         }
+
+        public static Date StingToDate(String date) {
+            date = date.replace('T', '-');
+            if (date.length() == 20)
+                date = date.substring(0, date.length() - 1);// a krétás hülyeség miatt kell, (random 'Z'a dátum végén...)
+            if (date.length() <= 19) {
+                try {
+                    return longDateFormat.parse(date);
+                } catch (ParseException e) {
+                    System.err.println("Nem sikerül átalakítani(rövid): " + date);
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    return longerDateFormat.parse(date);
+                } catch (ParseException e) {
+                    System.err.println("Nem sikerül átalakítani(hosszu): " + date);
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
 
         //region GetStringFromServer
         public static String GetStringFromServer(String address, Header[] headers) {

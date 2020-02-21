@@ -1,29 +1,33 @@
 package hu.red.KretaApi.objects;
 
+import hu.red.KretaApi.Utils.KretaTools.Utils;
+
+import java.util.Date;
+
 public class Test {
     private final String Uid;
     private final int Id;
-    private final String Datum;
+    private final Date Datum;
     private final String HetNapja;
     private final int Oraszam;
     private final String Tantargy;
     private final String Tanar;
     private final String SzamonkeresMegnevezese;
     private final String SzamonkeresModja;
-    private final String BejelentesDatuma;
+    private final Date BejelentesDatuma;
     private final String OsztalyCsoportUid;
 
     public Test(String uid, int id, String datum, String hetNapja, int oraszam, String tantargy, String tanar, String szamonkeresMegnevezese, String szamonkeresModja, String bejelentesDatuma, String osztalyCsoportUid) {
         Uid = uid;
         Id = id;
-        Datum = datum;
+        Datum = Utils.StingToDate(datum);
         HetNapja = hetNapja;
         Oraszam = oraszam;
         Tantargy = tantargy;
         Tanar = tanar;
         SzamonkeresMegnevezese = szamonkeresMegnevezese;
         SzamonkeresModja = szamonkeresModja;
-        BejelentesDatuma = bejelentesDatuma;
+        BejelentesDatuma = Utils.StingToDate(bejelentesDatuma);
         OsztalyCsoportUid = osztalyCsoportUid;
     }
 
@@ -35,7 +39,7 @@ public class Test {
         return Id;
     }
 
-    public String getDatum() {
+    public Date getDatum() {
         return Datum;
     }
 
@@ -63,7 +67,7 @@ public class Test {
         return SzamonkeresModja;
     }
 
-    public String getBejelentesDatuma() {
+    public Date getBejelentesDatuma() {
         return BejelentesDatuma;
     }
 

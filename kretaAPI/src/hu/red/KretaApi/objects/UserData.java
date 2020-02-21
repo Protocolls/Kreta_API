@@ -1,5 +1,9 @@
 package hu.red.KretaApi.objects;
 
+import hu.red.KretaApi.Utils.KretaTools;
+
+import java.util.Date;
+
 public class UserData {
     private final String TanuloAktualisOktatasNevelesiKategoriaja;
     private final int StudentId;
@@ -79,8 +83,8 @@ public class UserData {
         return AddressDataList;
     }
 
-    public String getDateOfBirthUtc() {
-        return DateOfBirthUtc;
+    public Date getDateOfBirthUtc() {
+        return KretaTools.Utils.StingToDate(DateOfBirthUtc);
     }
 
     public String getInstituteName() {
@@ -146,7 +150,7 @@ public class UserData {
         private final String Weight;
         private final String Value;
         private final String NumberValue;
-        private final boolean SeenByTutelaryUTC;
+        private final String SeenByTutelaryUTC;
         private final String Teacher;
         private final String Date;
         private final String CreatingTime;
@@ -155,7 +159,7 @@ public class UserData {
         private final Tipus ErtekFajta;
         private final String OsztalyCsoportUid;
 
-        public Evaluation(int evaluationId, String form, String formName, String type, String typeName, String subject, String subjectCategory, String subjectCategoryName, String theme, boolean isAtlagbaBeleszamit, String mode, String weight, String value, String numberValue, boolean seenByTutelaryUTC, String teacher, String date, String creatingTime, Tipus jelleg, String jellegNev, Tipus ertekFajta, String osztalyCsoportUid) {
+        public Evaluation(int evaluationId, String form, String formName, String type, String typeName, String subject, String subjectCategory, String subjectCategoryName, String theme, boolean isAtlagbaBeleszamit, String mode, String weight, String value, String numberValue, String seenByTutelaryUTC, String teacher, String date, String creatingTime, Tipus jelleg, String jellegNev, Tipus ertekFajta, String osztalyCsoportUid) {
             EvaluationId = evaluationId;
             Form = form;
             FormName = formName;
@@ -236,7 +240,7 @@ public class UserData {
             return NumberValue;
         }
 
-        public boolean isSeenByTutelaryUTC() {
+        public String isSeenByTutelaryUTC() {
             return SeenByTutelaryUTC;
         }
 
@@ -244,12 +248,12 @@ public class UserData {
             return Teacher;
         }
 
-        public String getDate() {
-            return Date;
+        public Date getDate() {
+            return KretaTools.Utils.StingToDate(Date);
         }
 
-        public String getCreatingTime() {
-            return CreatingTime;
+        public Date getCreatingTime() {
+            return KretaTools.Utils.StingToDate(CreatingTime);
         }
 
         public Tipus getJelleg() {
@@ -359,10 +363,10 @@ public class UserData {
         private final String JustificationStateName;
         private final String JustificationType;
         private final String JustificationTypeName;
-        private final boolean SeenByTutelaryUTC;
+        private final String SeenByTutelaryUTC;
         private final String OsztalyCsoportUid;
 
-        public Absence(int absenceId, String type, String typeName, String mode, String modeName, String subject, String subjectCategory, String subjectCategoryName, int delayTimeMinutes, String teacher, String lessonStartTime, int numberOfLessons, String creatingTime, String justificationState, String justificationStateName, String justificationType, String justificationTypeName, boolean seenByTutelaryUTC, String osztalyCsoportUid) {
+        public Absence(int absenceId, String type, String typeName, String mode, String modeName, String subject, String subjectCategory, String subjectCategoryName, int delayTimeMinutes, String teacher, String lessonStartTime, int numberOfLessons, String creatingTime, String justificationState, String justificationStateName, String justificationType, String justificationTypeName, String seenByTutelaryUTC, String osztalyCsoportUid) {
             AbsenceId = absenceId;
             Type = type;
             TypeName = typeName;
@@ -424,16 +428,16 @@ public class UserData {
             return Teacher;
         }
 
-        public String getLessonStartTime() {
-            return LessonStartTime;
+        public Date getLessonStartTime() {
+            return KretaTools.Utils.StingToDate(LessonStartTime);
         }
 
         public int getNumberOfLessons() {
             return NumberOfLessons;
         }
 
-        public String getCreatingTime() {
-            return CreatingTime;
+        public Date getCreatingTime() {
+            return KretaTools.Utils.StingToDate(CreatingTime);
         }
 
         public String getJustificationState() {
@@ -452,7 +456,7 @@ public class UserData {
             return JustificationTypeName;
         }
 
-        public boolean getSeenByTutelaryUTC() {
+        public String getSeenByTutelaryUTC() {
             return SeenByTutelaryUTC;
         }
 
@@ -466,13 +470,13 @@ public class UserData {
         private final String Type;
         private final String Title;
         private final String Content;
-        private final boolean SeenByTutelaryUTC;
+        private final String SeenByTutelaryUTC;
         private final String Teacher;
         private final String Date;
         private final String CreatingTime;
         private final String OsztalyCsoportUid;
 
-        public Note(int noteId, String type, String title, String content, boolean seenByTutelaryUTC, String teacher, String date, String creatingTime, String osztalyCsoportUid) {
+        public Note(int noteId, String type, String title, String content, String seenByTutelaryUTC, String teacher, String date, String creatingTime, String osztalyCsoportUid) {
             NoteId = noteId;
             Type = type;
             Title = title;
@@ -500,7 +504,7 @@ public class UserData {
             return Content;
         }
 
-        public boolean isSeenByTutelaryUTC() {
+        public String isSeenByTutelaryUTC() {
             return SeenByTutelaryUTC;
         }
 
@@ -508,12 +512,12 @@ public class UserData {
             return Teacher;
         }
 
-        public String getDate() {
-            return Date;
+        public Date getDate() {
+            return KretaTools.Utils.StingToDate(Date);
         }
 
-        public String getCreatingTime() {
-            return CreatingTime;
+        public Date getCreatingTime() {
+            return KretaTools.Utils.StingToDate(CreatingTime);
         }
 
         public String getOsztalyCsoportUid() {

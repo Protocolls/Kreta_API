@@ -6,6 +6,8 @@ import hu.red.KretaApi.objects.Test;
 import hu.red.KretaApi.objects.Tokens;
 import hu.red.KretaApi.objects.UserData;
 
+import java.util.Date;
+
 public class KretaUser {
     private final String USER_NAME;
     private final String PASSWORD;
@@ -32,6 +34,10 @@ public class KretaUser {
 
     }
 
+    public void setTokens(Tokens tokens) {
+        this.tokens = tokens;
+    }
+
     public Tokens forceRefreshTokens() {
         return tokens = KretaTools.APITools.getTokens(SCHOOL.getInstituteCode(), USER_NAME, PASSWORD);
     }
@@ -54,5 +60,9 @@ public class KretaUser {
 
     public UserData getUserData() {
         return KretaTools.APITools.getStudentInfos(SCHOOL.getInstituteCode(), tokens.getAccess_token());
+    }
+
+    public UserData getUserData(Date from, Date to) {
+        return KretaTools.APITools.getStudentInfos(SCHOOL.getInstituteCode(), tokens.getAccess_token(), from, to);
     }
 }
