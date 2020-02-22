@@ -1,5 +1,6 @@
 package hu.red.KretaApi.objects;
 
+import hu.red.KretaApi.Utils.Kreta;
 import hu.red.KretaApi.Utils.Kreta.Utils;
 
 import java.util.Date;
@@ -30,7 +31,6 @@ public class Test {
         BejelentesDatuma = Utils.StingToDate(bejelentesDatuma);
         OsztalyCsoportUid = osztalyCsoportUid;
     }
-
 
     public String getUid() {
         return Uid;
@@ -74,5 +74,10 @@ public class Test {
 
     public String getOsztalyCsoportUid() {
         return OsztalyCsoportUid;
+    }
+
+    @Override
+    public String toString() {
+        return Kreta.Utils.toJson(this);
     }
 }

@@ -1,5 +1,7 @@
 package hu.red.KretaApi.objects;
 
+import hu.red.KretaApi.Utils.Kreta;
+
 public class API_LINKS {
     private final String
             GlobalMobileApiUrlDEV,
@@ -30,5 +32,10 @@ public class API_LINKS {
     public String getGlobalMobileApiUrlPROD() {
         return GlobalMobileApiUrlPROD;
     }
+
     //endregion
+    @Override
+    public String toString() {
+        return Kreta.Utils.toJson(this);
+    }
 }

@@ -1,5 +1,7 @@
 package hu.red.KretaApi.objects;
 
+import hu.red.KretaApi.Utils.Kreta;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -38,5 +40,10 @@ public class NewHomework {
 
     public String getFeladatSzovege() {
         return FeladatSzovege;
+    }
+
+    @Override
+    public String toString() {
+        return Kreta.Utils.toJson(this);
     }
 }

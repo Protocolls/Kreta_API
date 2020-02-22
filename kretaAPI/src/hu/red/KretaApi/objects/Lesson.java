@@ -1,5 +1,6 @@
 package hu.red.KretaApi.objects;
 
+import hu.red.KretaApi.Utils.Kreta;
 import hu.red.KretaApi.Utils.Kreta.Utils;
 
 import java.util.Date;
@@ -155,5 +156,10 @@ public class Lesson {
     public String getHomework() {
         return Homework;
     }
+
     //endregion
+    @Override
+    public String toString() {
+        return Kreta.Utils.toJson(this);
+    }
 }

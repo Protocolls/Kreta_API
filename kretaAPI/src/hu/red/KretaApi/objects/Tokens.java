@@ -1,5 +1,7 @@
 package hu.red.KretaApi.objects;
 
+import hu.red.KretaApi.Utils.Kreta;
+
 public class Tokens {
     //region Variables
     private final String access_token;
@@ -31,5 +33,10 @@ public class Tokens {
     public String getRefresh_token() {
         return refresh_token;
     }
+
     //endregion
+    @Override
+    public String toString() {
+        return Kreta.Utils.toJson(this);
+    }
 }

@@ -52,6 +52,7 @@ public class UserData {
         Osztalyfonokok = osztalyfonokok;
         Tutelaries = tutelaries;
     }
+
     //region getters
 
     public String getTanuloAktualisOktatasNevelesiKategoriaja() {
@@ -721,5 +722,10 @@ public class UserData {
             return PhoneNumber;
         }
     }
+
     //endregion
+    @Override
+    public String toString() {
+        return Kreta.Utils.toJson(this);
+    }
 }

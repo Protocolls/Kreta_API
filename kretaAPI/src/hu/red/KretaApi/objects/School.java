@@ -1,5 +1,7 @@
 package hu.red.KretaApi.objects;
 
+import hu.red.KretaApi.Utils.Kreta;
+
 public class School {
     //region Variables
     private final String instituteCode;
@@ -51,11 +53,11 @@ public class School {
     }
     //endregions
 
-    @Override
-    public String toString() {
-        return name;
+    public class FeatureToggleSet {
     }
 
-    public class FeatureToggleSet {
+    @Override
+    public String toString() {
+        return Kreta.Utils.toJson(this);
     }
 }

@@ -56,4 +56,9 @@ public class Homework {
     public boolean isTanarAltalTorolt() {
         return TanarAltalTorolt;
     }
+
+    @Override
+    public String toString() {
+        return Kreta.Utils.toJson(this);
+    }
 }

@@ -15,9 +15,10 @@ import java.util.Base64;
 import java.util.Date;
 
 public abstract class Kreta {
+    private final static Gson gson = new Gson();
+
     public abstract static class Tools {
 
-        private final static Gson gson = new Gson();
 
         //region GetSchools
         public static School[] getSchools() {
@@ -87,6 +88,7 @@ public abstract class Kreta {
             );
         }
 
+        //region getTest
         public static Test[] getTests(String instituteCode, String bearer) {
             Header[] headers = {
                     new Header("Authorization", "Bearer " + bearer),
@@ -105,6 +107,7 @@ public abstract class Kreta {
             return gson.fromJson(Utils.GetStringFromServer(url, headers), Test[].class);
         }
 
+        //endregion
         //region homewok
         public static Homework[] getHomeworks(String instituteCode, String bearer, int TeacherHomeworkId) {
             Header[] headers = {
@@ -246,7 +249,7 @@ public abstract class Kreta {
                     StringBuilder builder = new StringBuilder();
 
                     while ((input = br.readLine()) != null) {
-                        builder.append(input).append("\n");
+                        builder.append(input);
                     }
                     br.close();
                     return builder.toString();
@@ -266,6 +269,10 @@ public abstract class Kreta {
         }
 
         //endregion
+        public static String toJson(Object object) {
+            return gson.toJson(object);
+        }
+
         public static String decodeToken(String str) {
             switch (str.length() % 4) {
                 case 2:
