@@ -15,7 +15,7 @@ import java.util.Base64;
 import java.util.Date;
 
 public abstract class Kreta {
-    public abstract static class APITools {
+    public abstract static class Tools {
 
         private final static Gson gson = new Gson();
 
@@ -105,6 +105,7 @@ public abstract class Kreta {
             return gson.fromJson(Utils.GetStringFromServer(url, headers), Test[].class);
         }
 
+        //region homewok
         public static Homework[] getHomeworks(String instituteCode, String bearer, int TeacherHomeworkId) {
             Header[] headers = {
                     new Header("Authorization", "Bearer " + bearer),
@@ -114,6 +115,19 @@ public abstract class Kreta {
             return gson.fromJson(Utils.GetStringFromServer(url, headers), Homework[].class);
         }
 
+        //todo nem teszteltem de nem hiszem hogy működik....(félkész)
+        public static String setHomework(String instituteCode, String bearer, NewHomework homework) {
+            Header[] headers = {
+                    new Header("Authorization", "Bearer " + bearer),
+                    new Header("charset", "utf-8"),
+                    new Header("Content-Type", "application/json"),
+                    URLS.USER_AGENT_HEADER
+            };
+            String url = "https://" + instituteCode + ".e-kreta.hu/mapi/api/v1/HaziFeladat/CreateTanuloHaziFeladat";
+            return Utils.GetStringFromServer(url, headers, gson.toJson(homework));
+        }
+
+        //endregion
         //region Student datas
         public static UserData getStudentInfos(String instituteCode, String bearer, Date from, Date to) {
             Header[] headers = {

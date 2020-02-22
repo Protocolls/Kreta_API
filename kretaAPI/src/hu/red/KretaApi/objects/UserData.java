@@ -154,7 +154,7 @@ public class UserData {
         private final String Mode;
         private final String Weight;
         private final String Value;
-        private final String NumberValue;
+        private final int NumberValue;
         private final String SeenByTutelaryUTC;
         private final String Teacher;
         private final String Date;
@@ -164,7 +164,7 @@ public class UserData {
         private final Tipus ErtekFajta;
         private final String OsztalyCsoportUid;
 
-        public Evaluation(int evaluationId, String form, String formName, String type, String typeName, String subject, String subjectCategory, String subjectCategoryName, String theme, boolean isAtlagbaBeleszamit, String mode, String weight, String value, String numberValue, String seenByTutelaryUTC, String teacher, String date, String creatingTime, Tipus jelleg, String jellegNev, Tipus ertekFajta, String osztalyCsoportUid) {
+        public Evaluation(int evaluationId, String form, String formName, String type, String typeName, String subject, String subjectCategory, String subjectCategoryName, String theme, boolean isAtlagbaBeleszamit, String mode, String weight, String value, int numberValue, String seenByTutelaryUTC, String teacher, String date, String creatingTime, Tipus jelleg, String jellegNev, Tipus ertekFajta, String osztalyCsoportUid) {
             EvaluationId = evaluationId;
             Form = form;
             FormName = formName;
@@ -241,7 +241,7 @@ public class UserData {
             return Value;
         }
 
-        public String getNumberValue() {
+        public int getNumberValue() {
             return NumberValue;
         }
 
