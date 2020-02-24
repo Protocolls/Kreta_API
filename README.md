@@ -3,7 +3,7 @@
 ## Használat
 ##### Még csak ennyi.....
 ```java
-        School school = KretaTools.APITools.getSchool(InstituteId);
+        School school = Kreta.Tools.getSchool(InstituteId);
 
         KretaUser user = new KretaUser(USERNAME,PASSWORD,school);
         
